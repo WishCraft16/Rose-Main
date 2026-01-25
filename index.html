@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Rose Day, My Love 🌹</title>
+    <style>
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+            cursor: default;
+        }
+
+        /* ========== WATERMARK STYLE ========== */
+        .watermark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9990; /* High z-index */
+            pointer-events: none; /* Allows clicks to pass through */
+            overflow: hidden;
+        }
+
+        .watermark-text {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-weight: 900;
+            font-size: 5rem;
+            /* Faint pink to match dark theme */
+            color: rgba(255, 195, 213, 0.25); 
+            text-transform: uppercase;
+            text-align: center;
+            transform: rotate(-30deg);
+            line-height: 1.2;
+            white-space: nowrap;
+            user-select: none;
+            border: 5px solid rgba(255, 195, 213, 0.06);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .watermark-text {
+                font-size: 2.5rem;
+                white-space: normal;
+            }
+        }
+
+        /* ========== PROMOTION BANNER STYLE ========== */
+        .promo-banner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            /* Dark glass effect */
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border: 2px solid #ffc3d5; /* Theme pink border */
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.2);
+            pointer-events: none;
+        }
+
+        .promo-banner img {
+            width: 60px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .promo-banner h2 {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ffc3d5;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .promo-banner span {
+            display: block;
+            font-size: 0.8rem;
+            color: #fff;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .promo-banner {
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+            }
+            .promo-banner h2 { font-size: 0.9rem; }
+        }
+
+        /* ========== SECTION STRUCTURE ========== */
+        .section {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .section.hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        /* ========== SECTION 1: HERO ========== */
+        #hero {
+            background: radial-gradient(ellipse at top, #1a0d14 0%, #0f0609 50%, #000000 100%);
+            position: relative;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 105, 180, 0.12) 0%, transparent 50%);
+            animation: ambient 10s ease-in-out infinite;
+        }
+
+        @keyframes ambient {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+            max-width: 700px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glowing-rose {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 35px;
+            position: relative;
+            animation: floatRose 4s ease-in-out infinite;
+        }
+
+        .glowing-rose::before {
+            content: '🌹';
+            font-size: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(0 0 40px rgba(255, 182, 193, 0.9))
+                    drop-shadow(0 0 80px rgba(255, 105, 180, 0.6));
+        }
+
+        @keyframes floatRose {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffc3d5 0%, #ffb3c6 25%, #ff9cb5 50%, #ffb3c6 75%, #ffc3d5 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: luxuryShimmer 4s ease infinite;
+            text-shadow: 0 0 60px rgba(255, 182, 193, 0.4);
+            line-height: 1.3;
+        }
+
+        @keyframes luxuryShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 1.3rem;
+            color: #f5d5df;
+            opacity: 0.9;
+            line-height: 1.7;
+            max-width: 550px;
+            margin: 0 auto;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .continue-btn {
+            margin-top: 50px;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 182, 193, 0.1));
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 50px;
+            color: #ffc3d5;
+            font-size: 1.1rem;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        .continue-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 182, 193, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .continue-btn:hover::before {
+            left: 100%;
+        }
+
+        .continue-btn:hover {
+            border-color: rgba(255, 182, 193, 0.8);
+            box-shadow: 0 0 50px rgba(255, 182, 193, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .continue-btn:active {
+            transform: scale(0.98) translateY(0);
+        }
+
+        /* Elegant Petals */
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(ellipse, rgba(255, 182, 193, 0.8), rgba(255, 156, 181, 0.6));
+            border-radius: 50% 0 50% 0;
+            opacity: 0.5;
+            animation: elegantFall linear infinite;
+            filter: blur(0.5px);
+        }
+
+        @keyframes elegantFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ========== SECTION 2: INTERACTIVE ROSE GARDEN ========== */
+        #garden {
+            background: radial-gradient(ellipse at center, #1c0e16 0%, #110a0e 50%, #000000 100%);
+            position: relative;
+        }
+
+        #garden::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 156, 181, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(255, 182, 193, 0.08) 0%, transparent 60%);
+        }
+
+        .garden-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease;
+            max-width: 800px;
+        }
+
+        .garden-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #ffc3d5;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .garden-subtitle {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 1.2rem;
+            color: #f5d5df;
+            opacity: 0.85;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        .rose-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rose-item {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.08), rgba(255, 156, 181, 0.12));
+            border: 1.5px solid rgba(255, 182, 193, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .rose-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .rose-item:hover {
+            transform: scale(1.1) rotate(5deg);
+            border-color: rgba(255, 182, 193, 0.6);
+            box-shadow: 0 15px 40px rgba(255, 156, 181, 0.4);
+        }
+
+        .rose-item:hover::before {
+            opacity: 1;
+        }
+
+        .rose-item.clicked {
+            animation: roseBloom 0.6s ease;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 156, 181, 0.2));
+            border-color: rgba(255, 182, 193, 0.5);
+        }
+
+        @keyframes roseBloom {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.3) rotate(15deg); }
+        }
+
+        .love-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 2rem;
+            color: #ffc3d5;
+            text-align: center;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            animation: showLoveText 2.5s ease-out forwards;
+            text-shadow: 0 0 30px rgba(255, 182, 193, 0.8);
+            max-width: 600px;
+            padding: 0 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        @keyframes showLoveText {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+
+        .love-counter {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 1.5rem;
+            color: #ffc3d5;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .love-counter.show {
+            opacity: 1;
+        }
+
+        /* ========== SECTION 3: FINAL REVEAL ========== */
+        #reveal {
+            background: radial-gradient(ellipse at bottom, #1f0e18 0%, #140a10 50%, #000000 100%);
+            position: relative;
+        }
+
+        #reveal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.15) 0%, transparent 70%);
+            animation: revealGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes revealGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        .reveal-content {
+            text-align: center;
+            filter: blur(25px);
+            transition: filter 2s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 1s ease;
+            z-index: 10;
+            max-width: 700px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .reveal-content.unblurred {
+            filter: blur(0);
+        }
+
+        .reveal-title {
+            font-size: 2.8rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #ffc3d5;
+            text-shadow: 0 0 60px rgba(255, 182, 193, 0.7);
+            max-width: 650px;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+        }
+
+        .rose-bloom {
+            font-size: 130px;
+            margin: 40px 0;
+            animation: bloom 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 60px rgba(255, 182, 193, 0.9))
+                    drop-shadow(0 0 120px rgba(255, 156, 181, 0.6));
+        }
+
+        @keyframes bloom {
+            0%, 100% { 
+                transform: scale(1) rotate(-5deg); 
+                filter: drop-shadow(0 0 60px rgba(255, 182, 193, 0.9))
+                        drop-shadow(0 0 120px rgba(255, 156, 181, 0.6));
+            }
+            50% { 
+                transform: scale(1.15) rotate(5deg); 
+                filter: drop-shadow(0 0 80px rgba(255, 182, 193, 1))
+                        drop-shadow(0 0 160px rgba(255, 156, 181, 0.8));
+            }
+        }
+
+        .replay-btn {
+            margin-top: 50px;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.25), rgba(255, 156, 181, 0.2));
+            border: 2px solid rgba(255, 182, 193, 0.6);
+            border-radius: 50px;
+            color: #ffc3d5;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 50px rgba(255, 182, 193, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        .replay-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(255, 182, 193, 0.6);
+            border-color: rgba(255, 182, 193, 0.9);
+        }
+
+        .replay-btn:active {
+            transform: scale(0.98) translateY(0);
+        }
+
+        /* Sparkle Particles */
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffc3d5;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleFall 4s ease-out infinite;
+            box-shadow: 0 0 12px rgba(255, 182, 193, 0.9);
+        }
+
+        @keyframes sparkleFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(110vh) scale(0.3);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: confettiFall 4s ease-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 182, 193, 0.5));
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(110vh) rotate(720deg) scale(0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="watermark-overlay">
+        <div class="watermark-text">
+            PREVIEW LINK ONLY <br>
+            DM TO CUSTOMIZE
+        </div>
+    </div>
+
+    <div class="promo-banner">
+        <img src="your-logo-link-here.png" alt="WISHCRAFT LOGO" onerror="this.style.display='none'">
+        <h2>DM WISHCRAFT</h2>
+        <span>TO CUSTOMIZE YOURS</span>
+    </div>
+
+    <section id="hero" class="section">
+        <div class="hero-content">
+            <div class="glowing-rose"></div>
+            <h1 class="hero-title">Happy Rose Day,<br>My Love</h1>
+            <p class="hero-subtitle">This rose isn't made of petals… it's made of feelings.</p>
+            <button class="continue-btn" onclick="goToSection('garden')">Tap to Continue</button>
+        </div>
+    </section>
+
+    <section id="garden" class="section hidden">
+        <div class="garden-content">
+            <h2 class="garden-title">Plant Our Love Garden 🌹</h2>
+            <p class="garden-subtitle">Click each rose to make it bloom with love</p>
+            
+            <div class="rose-grid" id="roseGrid">
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">💖</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+                <div class="rose-item" onclick="bloomRose(this)">🌹</div>
+            </div>
+
+            <div class="love-counter" id="loveCounter">
+                Love level: <span id="loveLevel">0</span>/9 💕
+            </div>
+
+            <button class="continue-btn" id="gardenBtn" onclick="goToSection('reveal')" style="margin-top: 40px; opacity: 0; pointer-events: none;">Continue</button>
+        </div>
+    </section>
+
+    <section id="reveal" class="section hidden">
+        <div class="reveal-content" id="revealContent">
+            <div class="rose-bloom">🌹</div>
+            <h2 class="reveal-title">This rose is my heart… and it belongs to you. ❤️</h2>
+            <button class="replay-btn" onclick="replay()">Replay This Love ✨</button>
+        </div>
+    </section>
+
+    <script>
+        let currentSection = 'hero';
+        let bloomedRoses = 0;
+        
+        // Love messages for each rose
+        const loveMessages = [
+            "You make my heart smile 💕",
+            "Every moment with you is precious ✨",
+            "You are my everything 💖",
+            "Forever grateful for you 🌹",
+            "You complete me 💝",
+            "My world is beautiful with you 🌸",
+            "You are my forever 💗",
+            "Love you more each day 💓",
+            "You are my sunshine ☀️"
+        ];
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createPetals();
+        });
+
+        // Create elegant falling petals
+        function createPetals() {
+            const sections = ['hero', 'garden', 'reveal'];
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                for (let i = 0; i < 18; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                    petal.style.animationDelay = Math.random() * 8 + 's';
+                    section.appendChild(petal);
+                }
+            });
+        }
+
+        // Bloom rose interaction
+        function bloomRose(element) {
+            if (!element.classList.contains('clicked')) {
+                element.classList.add('clicked');
+                
+                // Show love message
+                const message = loveMessages[bloomedRoses];
+                showLoveText(message);
+                
+                bloomedRoses++;
+                
+                // Update counter
+                const counter = document.getElementById('loveCounter');
+                const level = document.getElementById('loveLevel');
+                counter.classList.add('show');
+                level.textContent = bloomedRoses;
+
+                // Create floating heart
+                createFloatingHeart(element);
+
+                // Enable continue button when all roses are bloomed
+                if (bloomedRoses === 9) {
+                    const btn = document.getElementById('gardenBtn');
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                }
+            }
+        }
+
+        // Show love text animation
+        function showLoveText(message) {
+            const text = document.createElement('div');
+            text.className = 'love-text';
+            text.textContent = message;
+            document.body.appendChild(text);
+            setTimeout(() => text.remove(), 2500);
+        }
+
+        // Create floating heart effect
+        function createFloatingHeart(element) {
+            const heart = document.createElement('div');
+            heart.textContent = '💕';
+            heart.style.position = 'absolute';
+            heart.style.fontSize = '24px';
+            heart.style.left = element.getBoundingClientRect().left + 'px';
+            heart.style.top = element.getBoundingClientRect().top + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = 'floatUpHeart 2s ease-out forwards';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        // Add floating heart animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUpHeart {
+                to {
+                    transform: translateY(-200px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create sparkles and confetti
+        function createSparkles() {
+            const reveal = document.getElementById('reveal');
+            
+            // Sparkles
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.animationDelay = Math.random() * 2 + 's';
+                    reveal.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 4000);
+                }, i * 70);
+            }
+
+            // Confetti
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = ['🌸', '🌺', '💐', '🌹', '💕'][Math.floor(Math.random() * 5)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    reveal.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        // Navigate to section
+        function goToSection(sectionId) {
+            document.getElementById(currentSection).classList.add('hidden');
+            document.getElementById(sectionId).classList.remove('hidden');
+            currentSection = sectionId;
+
+            if (sectionId === 'reveal') {
+                setTimeout(() => {
+                    document.getElementById('revealContent').classList.add('unblurred');
+                    createSparkles();
+                }, 600);
+            }
+        }
+
+        // Replay function
+        function replay() {
+            bloomedRoses = 0;
+            document.getElementById('loveLevel').textContent = '0';
+            document.getElementById('loveCounter').classList.remove('show');
+            document.getElementById('gardenBtn').style.opacity = '0';
+            document.getElementById('gardenBtn').style.pointerEvents = 'none';
+            
+            // Reset roses
+            document.querySelectorAll('.rose-item').forEach(item => {
+                item.classList.remove('clicked');
+            });
+
+            document.getElementById('reveal').classList.add('hidden');
+            document.getElementById('hero').classList.remove('hidden');
+            document.getElementById('revealContent').classList.remove('unblurred');
+            currentSection = 'hero';
+        }
+
+        // Enhanced click interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
